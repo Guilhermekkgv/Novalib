@@ -5,9 +5,9 @@ local Library = {
     Version = "1.1.0",
     Theme = {
         Font = "Gotham",
-        Accent = Color3.fromRGB(0, 170, 255),
-        AcrylicMain = Color3.fromRGB(20, 20, 20),
-        AcrylicBorder = Color3.fromRGB(0, 170, 255),
+        Accent = Color3.fromRGB(147, 112, 219),
+        AcrylicMain = Color3.fromRGB(20, 0, 40),
+        AcrylicBorder = Color3.fromRGB(147, 112, 219),
         TitleBarLine = Color3.fromRGB(50, 50, 50),
         Element = Color3.fromRGB(30, 30, 30),
         ElementBorder = Color3.fromRGB(50, 50, 50),
@@ -18,9 +18,9 @@ local Library = {
         HideKey = "LeftAlt",
         DialogInput = Color3.fromRGB(40, 40, 40),
         DialogInputLine = Color3.fromRGB(60, 60, 60),
-        TabBackground = Color3.fromRGB(30, 30, 30),
-        TabSelected = Color3.fromRGB(0, 170, 255),
-        TabUnselected = Color3.fromRGB(20, 20, 20)
+        TabBackground = Color3.fromRGB(30, 0, 60),
+        TabSelected = Color3.fromRGB(147, 112, 219),
+        TabUnselected = Color3.fromRGB(20, 0, 40)
     }
 }
 
@@ -120,6 +120,14 @@ function Library.Main(Name)
         ZIndex = 3
     })
 
+    CreateModule.Instance("UIStroke", {
+        Parent = ContainerFrame,
+        Name = "Stroke",
+        Thickness = 1,
+        Color = Library.Theme.ElementBorder,
+        ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    })
+
     local isDraggingUI = false
     local dragStartPos = nil
     local dragStartFramePos = nil
@@ -168,13 +176,21 @@ function Library.Main(Name)
     local Tabs = {}
     local CurrentTab = nil
 
+    local function CalculateTabWidth(TabName)
+        local TextService = game:GetService("TextService")
+        local TextSize = TextService:GetTextSize(TabName, 14, Enum.Font[Library.Theme.Font], Vector2.new(1000, 1000))
+        return math.max(75, TextSize.X + 10)
+    end
+
     local function CreateTab(TabName)
+        local TabWidth = CalculateTabWidth(TabName)
+
         local TabButton = CreateModule.Instance("TextButton", {
             Parent = TabFrame,
             Name = TabName,
             BackgroundColor3 = Library.Theme.TabUnselected,
             BorderSizePixel = 0,
-            Size = UDim2.new(0, 80, 0, 30),
+            Size = UDim2.new(0, TabWidth, 0, 30),
             Font = Enum.Font[Library.Theme.Font],
             Text = TabName,
             TextColor3 = Library.Theme.FontColor,
@@ -202,6 +218,14 @@ function Library.Main(Name)
             ScrollingEnabled = false,
             Visible = false,
             ZIndex = 3
+        })
+
+        CreateModule.Instance("UIStroke", {
+            Parent = TabContainer,
+            Name = "Stroke",
+            Thickness = 1,
+            Color = Library.Theme.ElementBorder,
+            ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         })
 
         local ElementList = CreateModule.Instance("UIListLayout", {
@@ -502,7 +526,7 @@ function Library.Main(Name)
             local SliderButton = CreateModule.Instance("TextButton", {
                 Parent = SliderBar,
                 Name = "SliderButton",
-                BackgroundColor3 = Library.Theme.Accent,
+                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
                 BorderSizePixel = 0,
                 Position = UDim2.new(0, 0, 0.5, -5),
                 Size = UDim2.new(0, 10, 0, 10),
@@ -656,44 +680,7 @@ function Library.Main(Name)
                 TextSize = 14,
                 TextColor3 = Library.Theme.FontColor,
                 AutoButtonColor = false,
-                ZIndex = 3
-            })
-
-            CreateModule.Instance("UICorner", {
-                Parent = MinusButton,
-                Name = "Corner",
-                CornerRadius = UDim.new(0, 4)
-            })
-
-            CreateModule.Instance("UIStroke", {
-                Parent = MinusButton,
-                Name = "Stroke",
-                Thickness = 1,
-                Color = Library.Theme.ElementBorder,
-                ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-            })
-
-            local CurrentValue = config.Default or 0
-            local MinValue = config.Min or 0
-            local MaxValue = config.Max or 100
-            local Increment = config.Increment or 1
-
-            local function UpdateValue(newValue)
-                CurrentValue = math.clamp(newValue, MinValue, MaxValue)
-                ValueLabel.Text = tostring(math.floor(CurrentValue))
-                spawn(function() config.Callback(CurrentValue) end)
-            end
-
-            UpdateValue(CurrentValue)
-
-            PlusButton.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
-                    UpdateValue(CurrentValue + Increment)
-                end
-            end)
-
-            MinusButton.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
+                ZIndex =  type = Enum.UserInputType.Touch then
                     UpdateValue(CurrentValue - Increment)
                 end
             end)
