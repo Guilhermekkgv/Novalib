@@ -62,7 +62,7 @@ function Library.Main(Name)
         Size = UDim2.new(0, 500, 0, 300),
         Active = true,
         Draggable = false,
-        Visible = false,
+        Visible = true,
         ZIndex = 3
     })
 
@@ -165,11 +165,6 @@ function Library.Main(Name)
         if input.KeyCode == Enum.KeyCode[Library.Theme.HideKey] and not IsTyping then
             MainFrame.Visible = not MainFrame.Visible
         end
-    end)
-
-    spawn(function()
-        wait(0.2)
-        MainFrame.Visible = true
     end)
 
     local InMain = {}
@@ -596,97 +591,6 @@ function Library.Main(Name)
 
             AddToReg(Slider)
             return Slider
-        end
-
-        function TabFunctions.Incrementer(config)
-            local Incrementer = CreateModule.Instance("Frame", {
-                Parent = TabContainer,
-                Name = config.Name,
-                BackgroundTransparency = 1,
-                BorderSizePixel = 0,
-                Position = UDim2.new(0, 0, 0, 0),
-                Size = UDim2.new(1, 0, 0, 30),
-                ZIndex = 3
-            })
-
-            CreateModule.Instance("TextLabel", {
-                Parent = Incrementer,
-                Name = "Label",
-                BackgroundTransparency = 1,
-                BorderSizePixel = 0,
-                Position = UDim2.new(0, 5, 0, 0),
-                Size = UDim2.new(0.7, 0, 1, 0),
-                Font = Enum.Font[Library.Theme.Font],
-                Text = config.Name,
-                TextSize = 14,
-                TextColor3 = Library.Theme.FontColor,
-                TextXAlignment = Enum.TextXAlignment.Left,
-                ZIndex = 3
-            })
-
-            local ValueLabel = CreateModule.Instance("TextLabel", {
-                Parent = Incrementer,
-                Name = "ValueLabel",
-                BackgroundTransparency = 1,
-                BorderSizePixel = 0,
-                Position = UDim2.new(0.7, 0, 0, 0),
-                Size = UDim2.new(0.1, 0, 1, 0),
-                Font = Enum.Font[Library.Theme.Font],
-                Text = tostring(config.Default or 0),
-                TextSize = 14,
-                TextColor3 = Library.Theme.FontColorSecondary,
-                TextXAlignment = Enum.TextXAlignment.Center,
-                ZIndex = 3
-            })
-
-            local PlusButton = CreateModule.Instance("TextButton", {
-                Parent = Incrementer,
-                Name = "PlusButton",
-                BackgroundColor3 = Library.Theme.Element,
-                BorderSizePixel = 0,
-                Position = UDim2.new(0.85, -5, 0.5, -10),
-                Size = UDim2.new(0, 20, 0, 20),
-                Font = Enum.Font[Library.Theme.Font],
-                Text = "+",
-                TextSize = 14,
-                TextColor3 = Library.Theme.FontColor,
-                AutoButtonColor = false,
-                ZIndex = 3
-            })
-
-            CreateModule.Instance("UICorner", {
-                Parent = PlusButton,
-                Name = "Corner",
-                CornerRadius = UDim.new(0, 4)
-            })
-
-            CreateModule.Instance("UIStroke", {
-                Parent = PlusButton,
-                Name = "Stroke",
-                Thickness = 1,
-                Color = Library.Theme.ElementBorder,
-                ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-            })
-
-            local MinusButton = CreateModule.Instance("TextButton", {
-                Parent = Incrementer,
-                Name = "MinusButton",
-                BackgroundColor3 = Library.Theme.Element,
-                BorderSizePixel = 0,
-                Position = UDim2.new(0.75, -5, 0.5, -10),
-                Size = UDim2.new(0, 20, 0, 20),
-                Font = Enum.Font[Library.Theme.Font],
-                Text = "-",
-                TextSize = 14,
-                TextColor3 = Library.Theme.FontColor,
-                AutoButtonColor = false,
-                ZIndex =  type = Enum.UserInputType.Touch then
-                    UpdateValue(CurrentValue - Increment)
-                end
-            end)
-
-            AddToReg(Incrementer)
-            return Incrementer
         end
 
         return TabFunctions
