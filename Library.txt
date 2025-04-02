@@ -233,6 +233,21 @@ function Library.Main(Name)
             ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         })
 
+        local MainSection = CreateModule.Instance("TextLabel", {
+            Parent = MainContainer,
+            Name = "Section",
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+            Position = UDim2.new(0.5, -50, 0, -8),
+            Size = UDim2.new(0, 100, 0, 16),
+            Font = Enum.Font[Library.Theme.Font],
+            Text = "Main",
+            TextColor3 = Library.Theme.FontColor,
+            TextSize = 14,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            ZIndex = 4
+        })
+
         local MainElementList = CreateModule.Instance("UIListLayout", {
             Parent = MainContainer,
             Padding = UDim.new(0, 5),
@@ -264,6 +279,21 @@ function Library.Main(Name)
             Thickness = 1,
             Color = Library.Theme.AcrylicBorder,
             ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        })
+
+        local BasicSection = CreateModule.Instance("TextLabel", {
+            Parent = BasicContainer,
+            Name = "Section",
+            BackgroundTransparency = 1,
+            BorderSizePixel = 0,
+            Position = UDim2.new(0.5, -50, 0, -8),
+            Size = UDim2.new(0, 100, 0, 16),
+            Font = Enum.Font[Library.Theme.Font],
+            Text = "Basic",
+            TextColor3 = Library.Theme.FontColor,
+            TextSize = 14,
+            TextXAlignment = Enum.TextXAlignment.Center,
+            ZIndex = 4
         })
 
         local BasicElementList = CreateModule.Instance("UIListLayout", {
